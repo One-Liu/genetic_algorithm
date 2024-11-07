@@ -17,11 +17,11 @@ class GeneticAlgorithm:
                  num_generations = 50,
                  selection_type = 'steady-state',
                  selection_rate = 0.5,
-                 crossover_type = 'one-point',
-                 mutation_type = '',
+                 crossover_type = 'two-point',
+                 mutation_type = 'random-resetting',
                  mutation_rate = 0.3,
                  problem = 'triangle-classification',
-                 expected_solution = 'isosceles',
+                 expected_solution = 'isosceles'
                  ) -> None:
         self.chromo_len = chromo_len
         self.pop_size = pop_size
@@ -35,22 +35,24 @@ class GeneticAlgorithm:
 
         # Mutation rate range = 0 - 1 (0% - 100%)
         self.mutation_rate = mutation_rate
-        #TODO
         self.mutation_type = mutation_type
 
         self.fitness_function = FitnessFunction(problem, expected_solution)
         self.current_pop = []
 
+    def create_gen(self):
+        '''Creates a gen according with gen type'''
+        gen = random.randint(0,100)
+        return gen
+
     def init_pop(self):
         '''Initializes the population'''
         population = []
 
-        for i in range(self.pop_size):
+        for _ in range(self.pop_size):
             chromosome = []
-            for j in range(self.chromo_len):
-                #TODO: Generate gens according with type (bit, real number, permutation)
-                # GEN CREATION
-                chromosome.append(random.randint(0,100))
+            for _ in range(self.chromo_len):
+                chromosome.append(self.create_gen())
             population.append(chromosome)
 
         return population
@@ -71,7 +73,12 @@ class GeneticAlgorithm:
         return selected_new_pop
 
     def crossover(self, new_pop, current_pop):
-        '''Selects random parents according to the selected crossover'''
+        '''Selects random parents according to the selected crossover
+        
+        For reducing computational costs, we got three similar for loops.
+        This way we only need to validate the crossover type once and not 
+        n (population size) times.
+        '''
         offspring = []
 
         if self.crossover_type == 'one-point':
@@ -81,20 +88,48 @@ class GeneticAlgorithm:
                 parent2 = random.choice(current_pop)[0]
 
                 # Creates children
-                crossover_point = random.randint(1, self.chromo_len-1)
-                child1 = parent1[:crossover_point] + parent2[crossover_point:]
-                child2 = parent2[:crossover_point] + parent1[crossover_point:]
+                point = random.randint(1, self.chromo_len-1)
+                child1 = parent1[:point] + parent2[point:]
+                child2 = parent2[:point] + parent1[point:]
 
                 # Randomly selects child
                 children = [child1, child2]
                 offspring.extend([random.choice(children)])
 
         elif self.crossover_type == 'two-point':
-            #TODO
-            pass
+            for _ in range(self.pop_size):
+                # Gets the chromosome parents from the evaluated lists
+                parent1 = random.choice(new_pop)[0]
+                parent2 = random.choice(current_pop)[0]
+
+                # Creates children
+                point1 = random.randint(1, (self.chromo_len-2))
+                point2 = random.randint(point1+1, (self.chromo_len-1))
+                child1 = parent1[:point1] + parent2[point1:point2] + parent1[point2:]
+                child2 = parent2[:point1] + parent1[point1:point2] + parent2[point2:]
+
+                # Randomly selects child
+                children = [child1, child2]
+                offspring.extend([random.choice(children)])
+
         elif self.crossover_type == 'uniform':
-            #TODO
-            pass
+            for _ in range(self.pop_size):
+                # Gets the chromosome parents from the evaluated lists
+                parent1 = random.choice(new_pop)[0]
+                parent2 = random.choice(current_pop)[0]
+                parents = [parent1, parent2]
+
+                # Creates children
+                child1 = []
+                child2 = []
+                for chromo in range(self.chromo_len):
+                    random.shuffle(parents)
+                    child1.append(parents[0][chromo])
+                    child2.append(parents[1][chromo])
+
+                # Randomly selects child
+                children = [child1, child2]
+                offspring.extend([random.choice(children)])
 
         return offspring
 
@@ -102,13 +137,12 @@ class GeneticAlgorithm:
         '''Mutates the offspring population'''
         mutated_offspring = []
 
-        for child_chromo in offspring:
-            for i in range(self.chromo_len):
-                #TODO: Check if mutation rate is applied correctly
-                if self.mutation_rate > random.random():
-                    # GEN CREATION
-                    child_chromo[i] = random.randint(0,100)
-            mutated_offspring.append(child_chromo)
+        if self.mutation_type == 'random-resetting':
+            for child_chromo in offspring:
+                for i in range(self.chromo_len):
+                    if self.mutation_rate > random.random():
+                        child_chromo[i] = self.create_gen()
+                mutated_offspring.append(child_chromo)
 
         return mutated_offspring
 
