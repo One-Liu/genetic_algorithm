@@ -4,9 +4,7 @@ Reference code:
 https://medium.com/@Data_Aficionado_1083/genetic-algorithms-optimizing-success-through-evolutionary-computing-f4e7d452084f
 '''
 import random
-import pandas as pd
 from fitness_function import FitnessFunction
-from triangle_classification import Triangle
 
 class GeneticAlgorithm:
     '''Class for the Genetic Algorithm'''
@@ -156,65 +154,3 @@ class GeneticAlgorithm:
                 current_pop[_][1] = new_pop[_][1]
 
         return current_pop
-
-    def execute(self):
-        '''Executes the algorithm'''
-        # 1) Initialize population
-        initial_pop = self.init_pop()
-        generation = 1
-
-        # 2) Calculate fitness score for the current population
-        for chromosome in range(self.pop_size):
-            evaluated_chromo = self.fitness_function.get_fitness_score(initial_pop[chromosome])
-            self.current_pop.append(evaluated_chromo)
-
-        # 3) Loop until num_generations is reached
-        while generation <= self.num_generations:
-
-            # 3.1) Select best chromosomes from the current population
-            selected = self.selection(self.current_pop)
-            print('Selected:', selected)
-
-            # 3.2) Makes new generation
-            crossovered = self.crossover(selected, self.current_pop)
-            print('Crossovered:', crossovered)
-
-            # 3.3) Diversification
-            mutated = self.mutate(crossovered)
-            print('Mutated:', mutated)
-
-            # 3.3.1) Get fitness score for mutated chromosomes
-            new_pop = []
-            for mutated_chromo in mutated:
-                evaluated_chromo = self.fitness_function.get_fitness_score(mutated_chromo)
-                new_pop.append(evaluated_chromo)
-
-            # 3.4) Replace chromosome with new_pop chromosome if new_pop have better fitness score
-            self.current_pop = self.replace(new_pop, self.current_pop)
-
-            self.__show_generation(generation)
-            generation+=1
-
-    def __show_generation(self, generation):
-        '''Prints the current gen'''
-        print('GENERATION '+ str(generation))
-
-        data = {
-            "Fitness score": [],
-            "Classification": [],
-            "Chromosome": [],
-        }
-
-        df = pd.DataFrame(data)
-
-        for element in self.current_pop:
-            chromo = element[0]
-            triangle = Triangle(chromo[0],chromo[1],chromo[2])
-            df.loc[len(df.index)] = [
-                str(element[1]),
-                triangle.get_classification(),
-                str(chromo),
-            ]
-
-        print(df.to_string())
-        print('-'*100)
