@@ -1,16 +1,16 @@
 '''This file is for calling the triangle classification'''
 import pandas as pd
-from fitness_function import classify_triangle
+from fitness_evaluation import score_triangle_classification, classify_triangle
 from genetic_algorithm import GeneticAlgorithm
-from triangle_classification import Triangle
 
 def main():
     '''Main function'''
     ga = GeneticAlgorithm()
     problem = 'triangle-classification'
-    expected_solution = 'isosceles'
-    get_fitness_score = classify_triangle
+    expected_solution = 'equilateral'
 
+    if problem == 'triangle-classification':
+        get_fitness_score = score_triangle_classification
 
     # 1) Initialize population
     initial_pop = ga.init_pop()
@@ -62,10 +62,10 @@ def show_generation(ga, generation):
 
     for element in ga.current_pop:
         chromo = element[0]
-        triangle = Triangle(chromo[0],chromo[1],chromo[2])
+        triangle = [chromo[0],chromo[1],chromo[2]]
         df.loc[len(df.index)] = [
             str(element[1]),
-            triangle.get_classification(),
+            classify_triangle(triangle),
             str(chromo),
         ]
 
