@@ -6,28 +6,28 @@ https://medium.com/@Data_Aficionado_1083/genetic-algorithms-optimizing-success-t
 import random
 
 class GeneticAlgorithm:
-    '''Class for the Genetic Algorithm'''
+    '''Class for the configuration and execution of the genetic algorithm
 
-    def __init__(self,
-                 chromo_len = 3,
-                 pop_size = 10,
-                 num_generations = 50,
-                 selection_type = 'steady-state',
-                 selection_rate = 0.5,
-                 crossover_type = 'two-point',
-                 mutation_type = 'random-resetting',
-                 mutation_rate = 0.3
-                 ) -> None:
-        self._chromo_len = chromo_len
-        self._pop_size = pop_size
-        self._num_generations = num_generations
-        self._selection_type = selection_type
-        # Selection rate range = 0 - 1 (0% - 100%)
-        self._selection_rate = selection_rate
-        self._crossover_type = crossover_type
-        self._mutation_type = mutation_type
-        # Mutation rate range = 0 - 1 (0% - 100%)
-        self._mutation_rate = mutation_rate
+    Configurable attributes:
+    - chromo_len
+    - pop_size
+    - num_generations
+    - selection_type
+    - selection_rate
+    - crossover_type
+    - mutation_type
+    - mutation_rate
+    - current_pop
+    '''
+    def __init__(self) -> None:
+        self._chromo_len = 3
+        self._pop_size = 10
+        self._num_generations = 50
+        self._selection_type = 'steady-state'
+        self._selection_rate = 0.5
+        self._crossover_type = 'two-point'
+        self._mutation_type = 'random-resetting'
+        self._mutation_rate = 0.3
         self._current_pop = []
 
     @property
