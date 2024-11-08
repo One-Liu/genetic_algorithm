@@ -31,42 +31,69 @@ class GeneticAlgorithm:
         self._current_pop = []
 
     @property
-    def chromo_len(self):
+    def chromo_len(self) -> int:
         '''Get chromosome length'''
         return self._chromo_len
 
     @chromo_len.setter
-    def chromo_len(self, chromo_len):
+    def chromo_len(self, chromo_len: int):
         '''Set chromosome length'''
-        self._chromo_len = chromo_len
+        min_len = 1
+        max_len = 9999
+
+        if min_len <= chromo_len <= max_len:
+            self._chromo_len = chromo_len
+        else:
+            raise ValueError(
+                'Chromosome length must be between',
+                min_len,'and',max_len
+            )
 
     @property
-    def pop_size(self):
+    def pop_size(self) -> int:
         '''Get population size'''
         return self._pop_size
 
     @pop_size.setter
-    def pop_size(self, pop_size):
+    def pop_size(self, pop_size: int):
         '''Set population size'''
-        self._pop_size = pop_size
+        min_pop = 1
+        max_pop = 9999
+
+        if min_pop <= pop_size <= max_pop:
+            self._pop_size = pop_size
+        else:
+            raise ValueError(
+                'Population must be between',
+                min_pop,'and',max_pop
+            )
 
     @property
-    def num_generations(self):
+    def num_generations(self) -> int:
         '''Get number of generations'''
         return self._num_generations
 
     @num_generations.setter
-    def num_generations(self, pop_size):
+    def num_generations(self, num_generations: int):
         '''Set number of generations'''
-        self._num_generations = pop_size
+        min_generations = 1
+        max_generations = 9999
+
+        if min_generations <= num_generations <= max_generations:
+            self._num_generations = num_generations
+        else:
+            raise ValueError(
+                'Number of generations must be between',
+                min_generations,'and',max_generations
+            )
 
     @property
-    def selection_rate(self):
+    def selection_rate(self) -> float:
         '''Get selection rate'''
         return self._selection_rate
 
     @selection_rate.setter
-    def selection_rate(self, selection_rate):
+    def selection_rate(self, selection_rate: float):
         '''Set selection rate'''
         if 0 <= selection_rate <= 1:
             self._selection_rate = selection_rate
@@ -74,32 +101,42 @@ class GeneticAlgorithm:
             raise ValueError('Selection rate must be between 0 and 1')
 
     @property
-    def selection_type(self):
+    def selection_type(self) -> str:
         '''Get selection type'''
         return self._selection_type
 
     @selection_type.setter
-    def selection_type(self, selection_type):
+    def selection_type(self, selection_type: str):
         '''Set selection type'''
-        self._selection_type = selection_type
+        selection_types = ['random', 'steady-state']
+
+        if selection_type in selection_types:
+            self._selection_type = selection_type
+        else:
+            raise ValueError('Selection type must be a valid value')
 
     @property
-    def crossover_type(self):
+    def crossover_type(self) -> str:
         '''Get crossover type'''
         return self._crossover_type
 
     @crossover_type.setter
-    def crossover_type(self, crossover_type):
+    def crossover_type(self, crossover_type: str):
         '''Set crossover type'''
-        self._crossover_type = crossover_type
+        crossover_types = ['one-point', 'two-point', 'uniform']
+
+        if crossover_type in crossover_types:
+            self._crossover_type = crossover_type
+        else:
+            raise ValueError('Crossover type must be a valid value')
 
     @property
-    def mutation_rate(self):
+    def mutation_rate(self) -> float:
         '''Get mutation rate'''
         return self._mutation_rate
 
     @mutation_rate.setter
-    def mutation_rate(self, mutation_rate):
+    def mutation_rate(self, mutation_rate: float):
         '''Set mutation rate'''
         if 0 <= mutation_rate <= 1:
             self._mutation_rate = mutation_rate
@@ -107,24 +144,32 @@ class GeneticAlgorithm:
             raise ValueError('Mutation rate must be between 0 and 1')
 
     @property
-    def mutation_type(self):
+    def mutation_type(self) -> str:
         '''Get mutation type'''
         return self._mutation_type
 
     @mutation_type.setter
-    def mutation_type(self, mutation_type):
+    def mutation_type(self, mutation_type: str):
         '''Set mutation type'''
-        self._mutation_type = mutation_type
+        mutation_types = ['random-resetting']
+
+        if mutation_type in mutation_types:
+            self._mutation_type = mutation_type
+        else:
+            raise ValueError('Mutation type must be a valid value')
 
     @property
-    def current_pop(self):
+    def current_pop(self) -> list:
         '''Get current population'''
         return self._current_pop
 
     @current_pop.setter
-    def current_pop(self, current_pop):
+    def current_pop(self, current_pop: list):
         '''Set current population'''
-        self._current_pop = current_pop
+        if 0 < len(current_pop):
+            self._current_pop = current_pop
+        else:
+            raise ValueError('Current population must have individuals')
 
     def create_gen(self):
         '''Creates a gen according with gen type'''
