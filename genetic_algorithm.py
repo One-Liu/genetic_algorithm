@@ -68,7 +68,10 @@ class GeneticAlgorithm:
     @selection_rate.setter
     def selection_rate(self, selection_rate):
         '''Set selection rate'''
-        self._selection_rate = selection_rate
+        if 0 <= selection_rate <= 1:
+            self._selection_rate = selection_rate
+        else:
+            raise ValueError('Selection rate must be between 0 and 1')
 
     @property
     def selection_type(self):
@@ -98,7 +101,10 @@ class GeneticAlgorithm:
     @mutation_rate.setter
     def mutation_rate(self, mutation_rate):
         '''Set mutation rate'''
-        self._mutation_rate = mutation_rate
+        if 0 <= mutation_rate <= 1:
+            self._mutation_rate = mutation_rate
+        else:
+            raise ValueError('Mutation rate must be between 0 and 1')
 
     @property
     def mutation_type(self):
