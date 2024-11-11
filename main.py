@@ -1,7 +1,7 @@
 '''This file is for calling the triangle classification'''
 import pandas as pd
-from fitness_evaluation import score_triangle_classification, classify_triangle
-from genetic_algorithm import GeneticAlgorithm
+from src.models.fitness_evaluation import score_triangle_classification, classify_triangle
+from src.models.genetic_algorithm import GeneticAlgorithm
 
 def main():
     '''Main function'''
