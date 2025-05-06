@@ -5,5 +5,5 @@
 ![Class diagram](https://github.com/user-attachments/assets/70e1a2ac-35e2-42fb-aac1-66c988bb905c)
 
 * You can change the way the solutions are being evaluated in the evaluation.py file. The method score() defined in the parent class Evaluation is considered to be the method where the fitness of the solution is given.
-* Feel free to take inspiration from this code to create your own Genetic Algorithm applied to your problem!
+* Feel free to take inspiration from this code to create your own Genetic Algorithm applied to your problem!\
 I'll be grateful if you reference this project.
