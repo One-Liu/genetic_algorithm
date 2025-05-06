@@ -1,7 +1,7 @@
 # ABOUT
 * This mini-project contains a general genetic algorithm that supports changing the configuration of some of its attributes. In the next diagram we can see the algorithm process.
 
-![Genetic algorithm process](https://github.com/user-attachments/assets/b1f1e88a-7e34-4d1e-bb97-ae19d79f11bf)
+![Genetic algorithm process](https://github.com/user-attachments/assets/c9509c16-13bb-429a-a3b4-277db4b0ee32)
 
 * The evaluation.py file contains the problem that has the fitness function. In this case, the implemented problem is the Triangle Classification. The Triangle Classification problem involves determining the type of a triangle based on its side lengths.
 * You can change the way the solutions are being evaluated in the evaluation.py file. The method score() defined in the parent class Evaluation is considered to be the method where the fitness of the solution is given.
