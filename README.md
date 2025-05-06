@@ -2,9 +2,7 @@
 * This mini-project contains a general genetic algorithm that supports changing the configuration of some of its attributes.
 * As we can observe in the class diagram, the Factory Method pattern design was used almost everywhere, so you can add more types of gen, selections and so on without too much trouble.
 
-![Class diagram](https://github.com/user-attachments/assets/377e7803-a2eb-479e-bb1a-359f9f77bf88)
-![image](https://github.com/user-attachments/assets/01487b2e-1197-4224-b06e-7560870cd0ab)
-
+![Class diagram](https://github.com/user-attachments/assets/fec30070-32be-4e29-a228-cc384e91a787)
 
 * You can change the way the solutions are being evaluated in the evaluation.py file. The method score() defined in the parent class Evaluation is considered to be the method where the fitness of the solution is given.
 * Feel free to take inspiration from this code to create your own Genetic Algorithm applied to your problem!\
