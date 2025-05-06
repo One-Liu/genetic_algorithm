@@ -6,18 +6,22 @@
 
 ![Class diagram](https://github.com/user-attachments/assets/fec30070-32be-4e29-a228-cc384e91a787)
 
-# How to run the program
-1. Create a virtual environment (optional).
-2. Install the requirements specified in the requirements.txt file.
-3. Execute the main.py file.
-
-## Windows
+# How to run the program (Windows)
+1. Create and activate a virtual environment (optional).
 ```
 py -m venv .venv
 .venv\Scripts\activate
+```
+2. Install the requirements specified in the requirements.txt file.
+```
 py -m pip install -r requirements.txt
+```
+3. Execute the main.py file.
+```
 py main.py
 ```
 
-* Feel free to take inspiration from this code to create your own Genetic Algorithm applied to your problem!\
+If you're using other OS or you're having trouble with the first two steps, this [link](https://packaging.python.org/en/latest/guides/installing-using-pip-and-virtual-environments/) might help you out.
+
+Feel free to take inspiration from this code to create your own Genetic Algorithm applied to your problem!\
 I'll be grateful if you reference this project.
